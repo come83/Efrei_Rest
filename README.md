@@ -15,18 +15,6 @@ npm run install
 ```
 
 
-# Lancer Frontend et Backend
-Pour lancer le backend NodeJS et le frontend VueJS en même temps, à la racine du projet, exécuter la commande suivante :
-
-```sh
-npm run start
-```
-
-Le front-end sera disponible à l'url suivante : http://localhost:5173. 
-Le back-end sera disponible à l'url suivante : http://localhost:8081.
-
-
-
 # Configuration de la connexion à la base de données
 Afin de transmettre ses informations de connexions sur le github public, et d'eviter de générer des conflits lors de chaque pull et push des membres de l'équipe, nous allons utiliser le module dotenv.
 
@@ -41,6 +29,17 @@ USERNAME=mon_username
 PASSWORD=mon_mdp
 DB=mon_nom_de_bdd
 ```
+
+
+# Lancer Frontend et Backend
+Pour lancer le backend NodeJS et le frontend VueJS en même temps, à la racine du projet, exécuter la commande suivante :
+
+```sh
+npm run start
+```
+
+Le front-end sera disponible à l'url suivante : http://localhost:5173. 
+Le back-end sera disponible à l'url suivante : http://localhost:8081.
 
 
 # End point de test
