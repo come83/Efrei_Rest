@@ -1,4 +1,4 @@
-## XML Projet setup
+# XML Projet setup
 
 Pour télécharger le projet :
 
@@ -7,7 +7,7 @@ git pull https://github.com/come83/Efrei_Rest.git
 ```
 
 
-## Installation des dépendences
+# Installation des dépendences
 Pour installer toutes les dépendences du backend et du frontend en même temps, il faut se rendre à la racine du projet et exécuter la commande suivante :
 
 ```sh
@@ -15,7 +15,7 @@ npm run install
 ```
 
 
-## Lancer Frontend et Backend
+# Lancer Frontend et Backend
 Pour lancer le backend NodeJS et le frontend VueJS en même temps, à la racine du projet, exécuter la commande suivante :
 
 ```sh
@@ -27,7 +27,7 @@ Le back-end sera disponible à l'url suivante : http://localhost:8081.
 
 
 
-## Configuration de la connexion à la base de données
+# Configuration de la connexion à la base de données
 Afin de transmettre ses informations de connexions sur le github public, et d'eviter de générer des conflits lors de chaque pull et push des membres de l'équipe, nous allons utiliser le module dotenv.
 
 Dans le fichier backend/index.js, les variables de connexion user, password et database utilisent le module dotenv.
@@ -43,7 +43,7 @@ DB=mon_nom_de_bdd
 ```
 
 
-## End point de test
+# End point de test
 Dans le fichier index.js, c'est ici que se trouveront les requêtes sous contraintes REST tels que :
 
 1. **POST** : Pour créer une ressource sur le serveur, vous devez utiliser la méthode POST.
