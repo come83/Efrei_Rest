@@ -1,0 +1,19 @@
+{
+  "name": "projet-xml",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "(cd backend && npm run start) & npm run dev", 
+    "install": "(cd backend && npm run install) & npm install", 
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9"
+  }
+}
