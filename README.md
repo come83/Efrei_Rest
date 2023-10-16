@@ -6,12 +6,14 @@ Pour télécharger le projet :
 git pull https://github.com/come83/Efrei_Rest.git
 ```
 
+
 ## Installation des dépendences
 Pour installer toutes les dépendences du backend et du frontend en même temps, il faut se rendre à la racine du projet et exécuter la commande suivante :
 
 ```sh
 npm run install
 ```
+
 
 ## Lancer Frontend et Backend
 Pour lancer le backend NodeJS et le frontend VueJS en même temps, à la racine du projet, exécuter la commande suivante :
@@ -20,8 +22,9 @@ Pour lancer le backend NodeJS et le frontend VueJS en même temps, à la racine 
 npm run start
 ```
 
-Le front-end sera disponible à l'url suivante : http://localhost:5173
-Le back-end sera disponible à l'url suivante : http://localhost:8081
+Le front-end sera disponible à l'url suivante : http://localhost:5173. 
+Le back-end sera disponible à l'url suivante : http://localhost:8081.
+
 
 
 ## Configuration de la connexion à la base de données
@@ -39,6 +42,7 @@ PASSWORD=mon_mdp
 DB=mon_nom_de_bdd
 ```
 
+
 ## End point de test
 Dans le fichier index.js, c'est ici que se trouveront les requêtes sous contraintes REST tels que :
 
@@ -46,6 +50,7 @@ Dans le fichier index.js, c'est ici que se trouveront les requêtes sous contrai
 2. **GET** : Pour accéder à une ressource, utilisez GET.
 3. **PUT** : Pour modifier l'état d'une ressource ou pour la mettre à jour, utilisez PUT.
 4. **DELETE** : Pour annuler ou supprimer une ressource, utilisez DELETE.
+
 
 # Requete de test
 Une requête de test avec pour end-point /display-login, recupère les informations de la table login de notre base de donnée et les renvoie en JSON.
