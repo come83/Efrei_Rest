@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "(cd backend && npm run start) & npm run dev", 
-    "install": "(cd backend && npm run install) & npm install", 
+    "packages": "(cd backend && npm install) & npm install", 
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

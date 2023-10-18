@@ -3,7 +3,7 @@
 Pour télécharger le projet :
 
 ```sh 
-git pull https://github.com/come83/Efrei_Rest.git
+git clone https://github.com/come83/Efrei_Rest.git
 ```
 
 
@@ -11,7 +11,7 @@ git pull https://github.com/come83/Efrei_Rest.git
 Pour installer toutes les dépendences du backend et du frontend en même temps, il faut se rendre à la racine du projet et exécuter la commande suivante :
 
 ```sh
-npm run install
+npm run packages
 ```
 
 
