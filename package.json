@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"vite\" \"cd backend && npm run start\"",
-    "packages": "concurrently \"npm install\" \"cd backend && npm install\"",
+    "packages": "npm install && cd backend && npm install",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
