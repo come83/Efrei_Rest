@@ -1,0 +1,10 @@
+#app{
+    height: 100vh;
+    width: 100%;
+}
+#main{
+    height: inherit;
+    width: inherit;
+    display: grid;
+    place-content: center;
+}
