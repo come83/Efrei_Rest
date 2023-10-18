@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "(cd backend && npm run start) & npm run dev", 
-    "packages": "(cd backend && npm install) & npm install", 
+    "start": "concurrently \"vite\" \"cd backend && npm run start\"",
+    "packages": "concurrently \"npm install\" \"cd backend && npm install\"",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "concurrently": "^8.2.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {
