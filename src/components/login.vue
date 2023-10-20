@@ -34,20 +34,22 @@
         // Par exemple, vous pouvez effectuer une requête AJAX pour vérifier les informations de connexion
         // Une fois la connexion réussie, vous pouvez rediriger l'utilisateur vers "admin.html"
         // window.location.href = "admin.html";
-        console.log("coucou")
+
         let User = {
-            email: this.email, 
+            username: this.username, 
             password: this.password
         }
-        axios.get("http://localhost:8081/display-login" /*, User*/)
+
+        axios.get("http://localhost:8081/login" , { params: User })
         .then(response=>{
-            console.log(response)
-            console.log(response.data)
             if(response.status === 200){
-                
+              console.log(response.data)
             }
+            
         }, err => {
-            console.log(this.error)
+            if(err.response.status === 401){
+              console.log("No credentials or invalid credentials")
+            }
         })
       }
     }
