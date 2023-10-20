@@ -44,8 +44,8 @@
         .then(response=>{
             if(response.status === 200){
               console.log(response.data)
+              this.$router.push('/form-page')
             }
-            
         }, err => {
             if(err.response.status === 401){
               console.log("No credentials or invalid credentials")
