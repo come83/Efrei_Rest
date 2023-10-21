@@ -1,115 +1,120 @@
 <template>
-    <div>
-      <h1>Page admin -- Ajouter un nouveau film</h1>
-      <form @submit.prevent="submitForm">
+  <div>
+    <h1>Page admin -- Ajouter un nouveau film</h1>
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="title">Titre :</label>
+        <input type="text" id="title" v-model="film.title" required>
+      </div>
+
+      <div>
+        <label for="duration">Durée :</label>
+        <input type="text" id="duration" name="duration" v-model="film.duration" required>
+      </div>
+
+      <div>
+        <label for="language">Langue :</label>
+        <input type="text" id="language" name="language" v-model="film.language" required>
+      </div>
+
+      <div>
+        <label for="director">Réalisateur :</label>
+        <input type="text" id="director" name="director" v-model="film.director" required>
+      </div>
+
+      <div>
+        <label for="actors">Acteurs principaux :</label>
+        <input type="text" id="actors" name="actors" v-model="film.actors" required>
+      </div>
+
+      <div>
+        <label for="minAge">Âge minimum requis :</label>
+        <input type="number" id="minAge" name="minAge" v-model="film.minAge" required>
+      </div>
+
+      <div>
+        <label for="startDate">Date de début :</label>
+        <input type="date" id="startDate" name="startDate" v-model="film.startDate" required>
+
+        <label for="endDate">Date de fin :</label>
+        <input type="date" id="endDate" name="endDate" v-model="film.endDate" required>
+      </div>
+
+      <div id="days">
         <div>
-          <label for="title">Titre :</label>
-          <input type="text" id="title" v-model="film.title" required>
+          <label for="MWF">Lundi Mercredi Vendredi</label>
+          <input type="checkbox" id="MWF" name="daysOfWeek" v-model="film.daysOfWeek" value="MWF">
         </div>
-
         <div>
-            <label for="duration">Durée :</label>
-            <input type="text" id="duration" name="duration" v-model="film.duration" required>
+          <label for="TTS">Mardi Jeudi Samedi</label>
+          <input type="checkbox" id="TTS" name="daysOfWeek" v-model="film.daysOfWeek" value="TTS">
         </div>
-
         <div>
-            <label for="language">Langue :</label>
-            <input type="text" id="language" name="language" v-model="film.language" required>
+          <label for="TFS">Mardi Vendredi Dimanche</label>
+          <input type="checkbox" id="TFS" name="daysOfWeek" v-model="film.daysOfWeek" value="TFS">
         </div>
 
-        <div>
-            <label for="director">Réalisateur :</label>
-            <input type="text" id="director" name="director" v-model="film.director" required>
-        </div>
+      </div>
 
-        <div>
-            <label for="actors">Acteurs principaux :</label>
-            <input type="text" id="actors" name="actors" v-model="film.actors" required>
-        </div>
+      <div>
+        <label for="startTime">Heure de début :</label>
+        <input type="time" id="startTime" name="startTime" v-model="film.startTime" required>
+      </div>
 
-        <div>
-            <label for="minAge">Âge minimum requis :</label>
-            <input type="number" id="minAge" name="minAge" v-model="film.minAge" required>
-        </div>
+      <div>
+        <label for="city">Adresse cinema :</label>
+        <input type="text" id="city" name="city" v-model="film.city" required>
+      </div>
 
-        <div>
-            <label for="startDate">Date de début :</label>
-            <input type="date" id="startDate" name="startDate" v-model="film.startDate" required>
-
-            <label for="endDate">Date de fin :</label>
-            <input type="date" id="endDate" name="endDate" v-model="film.endDate" required>
-        </div>
-
-        <div id="days">
-            <div>
-                <label for="MWF">Lundi Mercredi Vendredi</label>
-                <input type="checkbox" id="MWF" name="daysOfWeek" v-model="film.daysOfWeek" value="MWF">
-            </div>
-            <div>
-                <label for="TTS">Mardi Jeudi Samedi</label>
-                <input type="checkbox" id="TTS" name="daysOfWeek" v-model="film.daysOfWeek" value="TTS">
-            </div>
-            <div>
-                <label for="TFS">Mardi Vendredi Dimanche</label>
-                <input type="checkbox" id="TFS" name="daysOfWeek" v-model="film.daysOfWeek" value="TFS">
-            </div>
-            
-        </div>
-
-        <div>
-            <label for="startTime">Heure de début :</label>
-            <input type="time" id="startTime" name="startTime" v-model="film.startTime" required>
-        </div>
-
-        <div>
-            <label for="city">Adresse cinema :</label>
-            <input type="text" id="city" name="city" v-model="film.city" required>
-        </div>
-
-        <div>
-          <input type="submit" value="Enregistrer">
-          <button>
-            <router-link to="/">Se déconnecter</router-link>
-          </button>
-        </div>
-      </form>
-    </div>
-  </template>
+      <div>
+        <input type="submit" value="Enregistrer">
+        <button>
+          <router-link to="/">Se déconnecter</router-link>
+        </button>
+      </div>
+    </form>
+  </div>
+</template>
   
   
-  <script>
-  export default {
-    data() {
-      return {
-        film: {
-          title: '',
-          duration: '',
-          language: '',
-          director: '',
-          actors: '',
-          minAge: null,
-          startDate: '',
-          endDate: '',
-          daysOfWeek: [],
-          startTime: '',
-          city: ''
-        }
-      };
-    },
-    methods: {
-      submitForm() {
-        // Envoyez les données du film au serveur ici (utilisez Axios ou une autre bibliothèque).
-        // Par exemple :
-        // axios.post('votre-endpoint', this.film)
-        //     .then(response => {
-        //         // Gérez la réponse du serveur ici
-        //     })
-        //     .catch(error => {
-        //         // Gérez les erreurs ici
-        //     });
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      film: {
+        title: '',
+        duration: '',
+        language: '',
+        director: '',
+        actors: '',
+        minAge: null,
+        startDate: '',
+        endDate: '',
+        daysOfWeek: [],
+        startTime: '',
+        city: ''
       }
+    };
+  },
+  methods: {
+    submitForm() {
+      axios.post('http://localhost:8081/addMovie', this.film)
+        .then(response => {
+          // Gérez la réponse du serveur ici
+          if (response.status === 200) {
+            alert("Film ajouté avec succès !");
+          }
+        })
+        .catch(error => {
+          // Gérez les erreurs ici
+          alert("Erreur lors de l'ajout du film: " + error);
+        });
     }
-  };
+
+  }
+};
 </script>
   
 <style scoped>

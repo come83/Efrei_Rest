@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   port: '3306',  
   user: 'root',
-  password: process.env.PASSWORD,
+  password: '',//process.env.PASSWORD,
   database: process.env.DB
 });
 
@@ -63,6 +63,87 @@ app.get('/login', (req, res) => {
     }
   });
 });
+
+app.post('/addMovie', (req, res) => {
+  const film = req.body;
+
+  // Vérifier si le réalisateur existe, sinon l'ajouter
+  db.query('SELECT id FROM directors WHERE director_name = ?', [film.director], (err, results) => {
+      if (err) {
+          console.error('Erreur lors de la vérification du réalisateur:', err);
+          return res.status(500).json({ error: 'Une erreur est survenue lors de la vérification du réalisateur' });
+      }
+
+      let directorID;
+      if (results.length > 0) {
+          directorID = results[0].id;
+      } else {
+          db.query('INSERT INTO directors (director_name) VALUES (?)', [film.director], (err, results) => {
+              if (err) {
+                  console.error('Erreur lors de l’ajout du réalisateur:', err);
+                  return res.status(500).json({ error: 'Une erreur est survenue lors de l’ajout du réalisateur' });
+              }
+              directorID = results.insertId;
+          });
+      }
+
+      // Vérifier si la langue existe, sinon l'ajouter
+      db.query('SELECT id FROM languages WHERE language_name = ?', [film.language], (err, results) => {
+          if (err) {
+              console.error('Erreur lors de la vérification de la langue:', err);
+              return res.status(500).json({ error: 'Une erreur est survenue lors de la vérification de la langue' });
+          }
+
+          let languageID;
+          if (results.length > 0) {
+              languageID = results[0].id;
+          } else {
+              db.query('INSERT INTO languages (language_name) VALUES (?)', [film.language], (err, results) => {
+                  if (err) {
+                      console.error('Erreur lors de l’ajout de la langue:', err);
+                      return res.status(500).json({ error: 'Une erreur est survenue lors de l’ajout de la langue' });
+                  }
+                  languageID = results.insertId;
+              });
+          }
+
+          const sqlInsertMovie = `INSERT INTO movies (title, duration, director_id, language_id, min_age, id_owner) VALUES (?, ?, ?, ?, ?, ?)`;
+          const values = [film.title, film.duration, directorID, languageID, film.minAge, 1];
+
+          db.query(sqlInsertMovie, values, (err, results) => {
+              if (err) {
+                  console.error('Erreur lors de l’insertion du film:', err);
+                  return res.status(500).json({ error: 'Une erreur est survenue lors de l’insertion du film' });
+              } else {
+                  // Insérez également les acteurs, le calendrier, etc. si nécessaire
+                  res.status(200).json({ success: true, message: "Film ajouté avec succès" });
+              }
+          });
+      });
+  });
+});
+
+
+app.get('/showmovies', (req, res) => {
+  // Exemple: obtenez tous les films et leurs informations de projection
+  const sqlQuery = `
+    SELECT m.title, m.duration, d.director_name, l.language_name, s.adresse_cinema
+    FROM movies m 
+    JOIN directors d ON m.director_id = d.id
+    JOIN languages l ON m.language_id = l.id
+    JOIN movie_schedule s ON m.id = s.movie_id
+  `;
+
+  db.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("Erreur lors de la récupération des films:", err);
+      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des films' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 
 // Démarrage du serveur Express
 const port = process.env.PORT || 8081;
