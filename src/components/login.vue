@@ -19,6 +19,7 @@
   
   <script>
   import axios from 'axios'
+  import { useSessionStore } from '@/stores/session'
 
   export default {
     data() {
@@ -26,6 +27,14 @@
         username: '',
         password: ''
       };
+    },
+    setup(){
+      const store = useSessionStore()
+
+      return { store }
+    },
+    mounted(){
+      this.store.$reset()
     },
     methods: {
       login() {
@@ -40,10 +49,12 @@
             password: this.password
         }
 
-        axios.get("http://localhost:8081/login" , { params: User })
+        axios.get("http://localhost:8081/users/login" , { params: User })
         .then(response=>{
             if(response.status === 200){
               console.log(response.data)
+              this.store.setUserId(response.data[0].id)
+              this.store.setUsername(response.data[0].username)
               this.$router.push('/form-page')
             }
         }, err => {

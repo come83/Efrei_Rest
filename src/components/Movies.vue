@@ -36,7 +36,7 @@ export default {
   methods: {
     async fetchMovies() {
   try {
-    const response = await axios.get('http://localhost:8081/showmovies');
+    const response = await axios.get('http://localhost:8081/movies/showmovies');
 
     console.log(response.data);
     return response.data;

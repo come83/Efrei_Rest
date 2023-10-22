@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Page admin -- Ajouter un nouveau film</h1>
+    <h1>Bonjour {{ this.username }} -- Page admin -- Ajouter un nouveau film</h1>
     <form @submit.prevent="submitForm">
       <div>
         <label for="title">Titre :</label>
@@ -79,6 +79,9 @@
   
 <script>
 import axios from 'axios';
+import { useSessionStore } from '@/stores/session'
+
+
 
 export default {
   data() {
@@ -94,13 +97,32 @@ export default {
         endDate: '',
         daysOfWeek: [],
         startTime: '',
-        city: ''
-      }
+        city: '',
+        id_owner: ''
+      },
+      id_user: '',
+      username: ''
     };
+  },
+  setup(){
+    const store = useSessionStore()
+
+    return { store }
+  },
+
+  mounted() {
+    if(this.store.getUserId() === ''){
+      this.$router.push('/')
+    }
+    else{
+      this.id_user = this.store.getUserId()
+      this.username = this.store.getUsername()
+      this.film.id_owner = this.store.getUserId()
+    }
   },
   methods: {
     submitForm() {
-      axios.post('http://localhost:8081/addMovie', this.film)
+      axios.post('http://localhost:8081/movies/addMovie', this.film)
         .then(response => {
           // Gérez la réponse du serveur ici
           if (response.status === 200) {
