@@ -4,6 +4,7 @@ const movieController = require('../controllers/movieController'); // Assurez-vo
 
 // Routes pour les films
 router.get('/showmovies', movieController.showMovies);
+router.get('/getAddressCinema', movieController.getAddressCinema);
 router.post('/addMovie', movieController.addMovie);
 
 module.exports = router;

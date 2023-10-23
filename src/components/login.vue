@@ -13,6 +13,11 @@
         <div>
           <input type="submit" value="Se connecter">
         </div>
+        <div>
+          <button>
+            <router-link to="/movies">Voir les films</router-link>
+          </button>
+        </div>
       </form>
     </div>
   </template>
@@ -38,11 +43,6 @@
     },
     methods: {
       login() {
-        // Code de gestion de la connexion ici
-        // Vous pouvez accéder aux données avec this.username et this.password
-        // Par exemple, vous pouvez effectuer une requête AJAX pour vérifier les informations de connexion
-        // Une fois la connexion réussie, vous pouvez rediriger l'utilisateur vers "admin.html"
-        // window.location.href = "admin.html";
 
         let User = {
             username: this.username, 
@@ -114,7 +114,8 @@
     border-radius: 5px;
   }
   
-  input[type="submit"] {
+  input[type="submit"], button {
+    margin-top: 10px;
     background: #0074d9;
     color: #fff;
     padding: 10px 20px;
@@ -125,6 +126,19 @@
   
   input[type="submit"]:hover {
     background: #0056b3;
+  }
+
+  button {
+    margin-top: 20px;
+    background: green;
+  }
+  button > * {
+    color: inherit;
+    text-decoration: none;
+    text-decoration-line: none;
+  }
+  button:hover {
+    background: yellowgreen;
   }
   </style>
   

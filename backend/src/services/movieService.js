@@ -1,7 +1,6 @@
 const dataAccessLayer = require('../../database.js');
 
 exports.showMovies = (req, res) => {
-  // Logique pour afficher les informations des films
 
     // Exemple: obtenez tous les films et leurs informations de projection
     const sql = `
@@ -10,7 +9,25 @@ exports.showMovies = (req, res) => {
       JOIN directors d ON m.director_id = d.id
       JOIN languages l ON m.language_id = l.id
       JOIN movie_schedule s ON m.id = s.movie_id
+      WHERE adresse_cinema = "`+ req.query.address +`";
     `;
+  
+    dataAccessLayer.executeSelectQuery(sql, [], (err, results) => {
+      if (err) {
+        console.error('Erreur lors de la récupération des utilisateurs :', err);
+        return res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des utilisateurs' });
+      } else {
+        return res.status(200).json(results);
+      }
+    });
+
+};
+
+exports.getAddressCinema = (req, res) => {
+  // Logique pour afficher les informations des films
+
+    // Exemple: obtenez tous les films et leurs informations de projection
+    const sql = 'SELECT DISTINCT adresse_cinema FROM movie_schedule';
   
     dataAccessLayer.executeSelectQuery(sql, [], (err, results) => {
       if (err) {

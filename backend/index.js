@@ -16,6 +16,7 @@ const movieRoutes = require('./src/routes/movieRoutes'); // Exemple de fichier d
 
 app.use('/users', userRoutes); // Utilisez les routes pour les utilisateurs
 app.use('/movies', movieRoutes); // Utilisez les routes pour les films
+app.use('/getAddressCinema', movieRoutes); // Utilisez les routes pour les films
 
 // Gestion des erreurs pour les routes non trouvées
 app.use((req, res) => {
