@@ -1,12 +1,23 @@
 const movieService = require('../services/movieService');
 
-// End point pour les films
-exports.showMovies = (req, res) => {
-  movieService.showMovies(req, res);
+exports.showMovies = async (req, res) => {
+    try {
+        const results = await movieService.showMovies(req.query.address);
+        res.status(200).json(results);
+    } catch (error) {
+        console.error('Erreur :', error.message);
+        res.status(500).json({ error: error.message });
+    }
 };
 
-exports.getAddressCinema = (req, res) => {
-  movieService.getAddressCinema(req, res);
+exports.getAddressCinema = async (req, res) => {
+    try {
+        const results = await movieService.getAddressCinema();
+        res.status(200).json(results);
+    } catch (error) {
+        console.error('Erreur :', error.message);
+        res.status(500).json({ error: error.message });
+    }
 };
 
 exports.addMovie = (req, res) => {

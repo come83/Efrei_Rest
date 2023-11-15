@@ -23,7 +23,7 @@
   </template>
   
   <script>
-  import axios from 'axios'
+  import { loginService } from '../services/userService.js';
   import { useSessionStore } from '@/stores/session'
 
   export default {
@@ -42,26 +42,23 @@
       this.store.$reset()
     },
     methods: {
-      login() {
-
+      async login() {
         let User = {
             username: this.username, 
             password: this.password
         }
-
-        axios.get("http://localhost:8081/users/login" , { params: User })
-        .then(response=>{
-            if(response.status === 200){
+        try {
+          const response = await loginService(User);
+          console.log(response)
+          if(response.status === 200){
               console.log(response.data)
-              this.store.setUserId(response.data[0].id)
-              this.store.setUsername(response.data[0].username)
+              this.store.setUserId(response.data.id)
+              this.store.setUsername(response.data.username)
               this.$router.push('/form-page')
             }
-        }, err => {
-            if(err.response.status === 401){
-              console.log("No credentials or invalid credentials")
-            }
-        })
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   };

@@ -1,35 +1,43 @@
 const dataAccessLayer = require('../../database.js');
 
-exports.displayLogin = (req, res) => {
-  const sql = 'SELECT * FROM user';
-  dataAccessLayer.executeSelectQuery(sql, [], (err, results) => {
-    if (err) {
-      console.error('Erreur lors de la récupération des utilisateurs :', err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des utilisateurs' });
-    } else {
-      res.status(200).json(results);
-    }
-  });
+const displayLogin = () => {
+    const sql = 'SELECT * FROM user';
+
+    return new Promise((resolve, reject) => {
+        dataAccessLayer.executeSelectQuery(sql, [], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la récupération des utilisateurs :', err);
+                reject(new Error('Une erreur est survenue lors de la récupération des utilisateurs'));
+            } else {
+                resolve(results);
+            }
+        });
+    });
 };
 
-exports.login = (req, res) => {
-  // Logique de connexion utilisateur
-  const username = req.query.username;
-  const password = req.query.password;
-  const sql = 'SELECT id, username FROM user WHERE username = ? AND password = ?';
 
-  dataAccessLayer.executeSelectQuery(sql, [username, password], (err, results) => {
-    if (err) {
-      console.error('Erreur lors de la récupération des utilisateurs :', err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des utilisateurs' });
-    } else {
-      if (results.length === 0) {
-        res.status(401).json(results); // 401 Unauthorized
-      } else if (results.length === 1) {
-        res.status(200).json(results); // 200 OK
-      }
-    }
-  });
+const login = async (username, password) => {
+    const sql = 'SELECT id, username FROM user WHERE username = ? AND password = ?';
+
+    return new Promise((resolve, reject) => {
+        dataAccessLayer.executeSelectQuery(sql, [username, password], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la récupération des utilisateurs :', err);
+                reject(new Error('Une erreur est survenue lors de la récupération des utilisateurs'));
+            } else {
+                if (results.length === 0) {
+                    reject(new Error('Aucun utilisateur trouvé'));
+                } else if (results.length === 1) {
+                    resolve(results[0]); // Renvoie le premier résultat
+                } else {
+                    reject(new Error('Plusieurs utilisateurs trouvés'));
+                }
+            }
+        });
+    });
 };
 
-// Vous pouvez ajouter d'autres fonctions pour gérer la logique métier liée aux utilisateurs
+module.exports = {
+    login,
+    displayLogin
+};

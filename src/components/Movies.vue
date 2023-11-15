@@ -29,7 +29,7 @@
   
 
   <script>
-  import axios from 'axios';
+import movieService from '@/services/movieService';
 export default {
   data() {
     return {
@@ -47,33 +47,31 @@ export default {
     changeCinema() {
       let cinema = {
         address: this.selectedValue
-      }
-      axios.get("http://localhost:8081/movies/showmovies", { params: cinema })
-        .then(response=>{
-
-            if(response.status === 200){
-              console.log(response.data);
-              this.movies = response.data
-            }
-        }, err => {
-            if(err.response.status === 401){
-              console.log("Erreur lors de la récupération des films:", err)
-            }
-        })
+      };
+      movieService.changeCinema(cinema.address)
+        .then(response => {
+          if (response.status === 200) {
+            console.log(response.data);
+            this.movies = response.data;
+          }
+        }).catch(err => {
+          if (err.response && err.response.status === 401) {
+            console.log("Erreur lors de la récupération des films:", err);
+          }
+        });
     },
-    getAddressCinema(){
-      axios.get("http://localhost:8081/movies/getAddressCinema")
-        .then(response=>{
-            if(response.status === 200){
-              for (let i = 0; i < response.data.length; i++){
-                this.options.push(response.data[i].adresse_cinema);
-              }
-            }
-        }, err => {
-            if(err.response.status === 401){
-              console.log("No credentials or invalid credentials")
-            }
-        })
+
+    getAddressCinema() {
+      movieService.getAddressCinema()
+        .then(response => {
+          if (response.status === 200) {
+            this.options = response.data.map(item => item.adresse_cinema);
+          }
+        }).catch(err => {
+          if (err.response && err.response.status === 401) {
+            console.log("No credentials or invalid credentials");
+          }
+        });
     }
   }
 }

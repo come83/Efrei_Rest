@@ -1,50 +1,48 @@
 const dataAccessLayer = require('../../database.js');
 
-exports.showMovies = (req, res) => {
-
-    // Exemple: obtenez tous les films et leurs informations de projection
+// Fonction pour afficher les films en fonction d'une adresse
+const showMovies = (address) => {
     const sql = `
       SELECT m.title, m.duration, d.director_name, l.language_name, s.adresse_cinema
       FROM movies m 
       JOIN directors d ON m.director_id = d.id
       JOIN languages l ON m.language_id = l.id
       JOIN movie_schedule s ON m.id = s.movie_id
-      WHERE adresse_cinema = "`+ req.query.address +`";
+      WHERE adresse_cinema = ?;
     `;
-  
-    dataAccessLayer.executeSelectQuery(sql, [], (err, results) => {
-      if (err) {
-        console.error('Erreur lors de la récupération des utilisateurs :', err);
-        return res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des utilisateurs' });
-      } else {
-        return res.status(200).json(results);
-      }
-    });
 
+    return new Promise((resolve, reject) => {
+        dataAccessLayer.executeSelectQuery(sql, [address], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la récupération des films :', err);
+                reject(new Error('Une erreur est survenue lors de la récupération des films'));
+            } else {
+                resolve(results);
+            }
+        });
+    });
 };
 
-exports.getAddressCinema = (req, res) => {
-  // Logique pour afficher les informations des films
-
-    // Exemple: obtenez tous les films et leurs informations de projection
+// Fonction pour obtenir les adresses des cinémas
+const getAddressCinema = () => {
     const sql = 'SELECT DISTINCT adresse_cinema FROM movie_schedule';
-  
-    dataAccessLayer.executeSelectQuery(sql, [], (err, results) => {
-      if (err) {
-        console.error('Erreur lors de la récupération des utilisateurs :', err);
-        return res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des utilisateurs' });
-      } else {
-        return res.status(200).json(results);
-      }
-    });
 
+    return new Promise((resolve, reject) => {
+        dataAccessLayer.executeSelectQuery(sql, [], (err, results) => {
+            if (err) {
+                console.error('Erreur lors de la récupération des adresses :', err);
+                reject(new Error('Une erreur est survenue lors de la récupération des adresses'));
+            } else {
+                resolve(results);
+            }
+        });
+    });
 };
 
 exports.addMovie = (req, res) => {
   // Logique pour ajouter un film
   const film = req.body;
-  console.log("dji")
-  console.log(film)
+
   const sql1 = "SELECT id FROM directors WHERE director_name = ?"
 
   dataAccessLayer.executeSelectQuery(sql1, [film.director], (err, results) => { 
@@ -144,4 +142,8 @@ exports.addMovie = (req, res) => {
   });
 };
 
-// Vous pouvez ajouter d'autres fonctions pour gérer la logique métier liée aux films
+module.exports = {
+  showMovies,
+  getAddressCinema,
+  // autres méthodes exportées
+};
