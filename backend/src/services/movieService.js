@@ -54,7 +54,7 @@ const getAddressCinema = () => {
     });
 };
 
-exports.addMovie = (req, res) => {
+const addMovie = (req, res) => {
   // Logique pour ajouter un film
   const film = req.body;
 
@@ -160,5 +160,6 @@ exports.addMovie = (req, res) => {
 module.exports = {
   showMovies,
   getAddressCinema,
+  addMovie
   // autres méthodes exportées
 };
