@@ -14,8 +14,14 @@
             <h2>{{ movie.title }}</h2>
             <p>Durée : {{ movie.duration }} minutes</p>
             <p>Réalisateur : {{ movie.director_name }}</p>
+            <p>Acteurs : {{ movie.actors }}</p>
             <p>Langue : {{ movie.language_name }}</p>
             <p>Adresse du cinéma : {{ movie.adresse_cinema }}</p>
+            <p>Du {{ movie.startDate }} au {{ movie.endDate }}</p>
+            <p v-if="movie.daysMWF  === 1">Séance le Lundi, Mercredi et Vendredi</p>
+            <p v-if="movie.daysTTS  === 1">Séance le Mardi, Jeudi et Samedi</p>
+            <p v-if="movie.daysTFS  === 1">Séance le Mardi, Vendredi et Dimanche</p>
+            <p>Début séance : {{ movie.startTime }}</p>
           </li>
         </ul>
       </div>
